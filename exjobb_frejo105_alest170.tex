@@ -1,0 +1,126 @@
+% !TeX spellcheck = sv_SE
+\documentclass{sigchi}
+
+\pagenumbering{arabic}
+
+\usepackage{balance}
+\usepackage{graphics}
+\usepackage[T1]{fontenc}
+\usepackage{txfonts}
+\usepackage[pdflang={sv-SE},pdftex]{hyperref}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{textcomp}
+
+
+\usepackage{microtype}
+\usepackage[all]{hypcap}    % Fixes bug in hyperref caption linking
+\usepackage{ccicons}
+\usepackage[utf8]{inputenc}
+
+\def\plaintitle{Ingen titel än}
+\def\plainauthor{Fredrik Jonsén, Alexander Stolpe}
+
+\makeatletter
+\def\url@leostyle{
+	\@ifundefined{selectfont}{
+		\def\UrlFont{\sf}
+	}{
+		\def\UrlFont{\small\bf\ttfamily}
+}}
+\makeatother
+\urlstyle{leo}
+
+\def\pprw{8.5in}
+\def\pprh{11in}
+\special{papersize=\pprw,\pprh}
+\setlength{\paperwidth}{\pprw}
+\setlength{\paperheight}{\pprh}
+\setlength{\pdfpagewidth}{\pprw}
+\setlength{\pdfpageheight}{\pprh}
+
+\definecolor{linkColor}{RGB}{6,125,233}
+\hypersetup{
+	pdfauthor={\plainauthor},
+	pdfdisplaydoctitle=true,
+	bookmarksnumbered,
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=linkColor,
+	breaklinks=true,
+}
+
+\begin{document}
+\title{\plaintitle}
+\numberofauthors{2}
+\author{
+	\alignauthor{Fredrik Jonsén\\
+		\affaddr{Linköpings universitet}\\
+		\affaddr{Linköping, Sverige}\\
+		\email{frejo105@student.liu.se}}
+	\alignauthor{Alexander Stolpe\\
+		\affaddr{Linköpings universitet}\\
+		\affaddr{Linköping, Sverige}\\
+		\email{alest170@student.liu.se}}
+}
+
+\maketitle
+
+\begin{abstract}
+I dagsläget så använder sig väldigt många människor utav sociala medier, och antalet
+användare ökar kraftigt varje år\cite{STATISTA_SN_WORLD_USERS}. Detta gör det allt mer
+attraktivt för utvecklare att involvera sociala nätverk i sin mjukvara. Eftersom plattformarna
+skiljer sig åt i funktionalitet och användarinteraktion kan det vara relevant att studera hur
+man på bästa sätt binder samman flera olika av dessa. Detta för att nå ut till så många som
+möjligt, samt möjligheten att använda den  plattform som bäst lämpar sig för syftet. För att
+undersöka vilken lösning som anses lämplig och i vilken mån detta kan vara till praktisk nytta
+så har vi gjort en studie utav de stora aktörerna inom sociala media. Därefter implementerade vi
+en mindre prototyp för att visa på hur en lösning av detta kan se ut.
+\end{abstract}
+
+\section{Inledning}
+\subsection{Motivering}
+Sociala nätverk ökade mellan 2010 till 2015 från 0,97 miljarder till 2,14 miljarder användare. Som referenspunkt motsvarar detta 29\% av Jordens befolkning år 2015 (7,347 miljarder)\cite{WORLD_BANK_POPULATION}. 
+År 2018 förväntas antal användare ligga runt 2,67 miljarder\cite{STATISTA_SN_WORLD_USERS}. Här räknas dock
+antalet konton, och inte unika användare. De största aktörerna på marknaden var, i januari 2017, Facebook, WhatsApp, Facebook Messenger, QQ, samt WeChat\cite{STATISTA_LEADING_SOCIAL_NETWORKS}.
+
+Då antalet människor som använder sociala medier ökar så blir behovet allt större att nå ut till alla dessa. 
+För att nå ut till så många som möjligt räcker det inte med att enbart rikta sig mot en av dessa. De 
+flesta av de stora plattformarna har i dagsläget öppna API:er som man som utvecklare kan använda sig av 
+för att utveckla program och applikationer mot.
+
+\subsection{Syfte}
+För att ta reda på vilka av de stora plattformarna som hade den önskvärda funktionaliteten, 
+i sina respektive API:er, så gjorde vi inledningsvis en studie av dessa.
+
+För att sedan testa hur det i praktiken kan se ut när man skapar ett ramverk som binder 
+ihop flera sociala nätverk så har vi utvecklat en prototyp för mobilapplikationen Blixtvakt, 
+en applikation som varnar användare om blixtnedslag någonstans innanför ett valt område. Tanken 
+bakom ramverket vi byggt är att försöka utnyttja sociala nätverk som en kommunikationskanal mellan 
+appen och användare, exempelvis för att skicka ut information, samt mellan användare.
+
+\section{Frågeställning}
+Hur utvecklar man ett ramverk för att binda samman olika sociala nätverk utifrån följande faktorer:
+\begin{itemize}
+	\item Hur når man ut till så många som möjligt?
+	\item Vilka av plattformarna lämpar sig för direkt, respektive indirekt, kommunikation?
+	\item Föredrar användare att bli kontaktade indirekt eller direkt? 
+\end{itemize}
+\section{Avgränsningar}
+Då det finns väldigt många sociala medier måste vi välja en mindre mängd att inrikta oss mot 
+när vi utvecklar vårt program. Vi måste även i vårt arbete fokusera på vad som lämpar sig bäst 
+för att integrera med applikationen Blixtvakt. För att välja dessa så har vi valt att utgå 
+från dessa kriterier:
+\begin{itemize}
+	\item Plattformen måste vara en av de 22 största\cite{STATISTA_LEADING_SOCIAL_NETWORKS}.
+	\item Plattformen måste vara relevant att länka samman men Blixtvakt.
+	\item Det måste finnas bra stöd i plattformens API.
+\end{itemize}
+\balance{}
+
+\bibliographystyle{SIGCHI-Reference-Format}
+\bibliography{references}
+
+\end{document}
