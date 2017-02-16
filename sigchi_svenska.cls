@@ -887,7 +887,7 @@
    \color@endgroup} %g}
 \fi
 \setcounter{footnote}{0}
-\section*{ABSTRACT}\normalsize %\the\parskip \the\baselineskip%\ninept
+\section*{SAMMANFATTNING}\normalsize %\the\parskip \the\baselineskip%\ninept
 }
 
 \def\endabstract{\if@twocolumn\else\endquotation\fi}
@@ -1445,7 +1445,7 @@
 \urlstyle{leo}
 %%
     \section{%
-       {References}
+       {Referenser}
         \@mkboth{{\refname}}{{\refname}}%
     }%
 %    \list{[\arabic{enumi}]}{%
@@ -1557,17 +1557,6 @@
 \twocolumn             % Double column.
 \flushbottom           % Even bottom -- alas, does not balance columns at end of document
 \pagestyle{plain}
-
-% Need Copyright Year and Copyright Data to be user definable (in .tex file).
-% Gerry Nov. 30th. 1999
-\newtoks\copyrtyr
-\newtoks\acmcopyr
-\newtoks\boilerplate
-
-\global\acmcopyr={X-XXXXX-XX-X/XX/XX}  % Default - 5/11/2001 *** Gerry
-\global\copyrtyr={\the\year}                % Default - 3/3/2003 *** Gerry
-\def\acmPrice#1{\gdef\@acmPrice{#1}}
-\acmPrice{} %article price  % Changed to 15 - June 2012 - Gerry
 
 
 

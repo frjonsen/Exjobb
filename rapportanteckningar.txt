@@ -1,0 +1,25 @@
+Bakgrund- och teori
+
+Java EE Framework: twitter, facebook, linkedin
+http://www.agorava.org/
+
+SocialMedia Abstractions. Abstractions för funktionalitet som finns i många frameworks för sociala media.
+https://github.com/socialsensor/socialmedia-abstractions
+
+Verkar vara ungefär det vi ska göra? Skrivet i Java
+https://github.com/gorbin/ASNE
+
+Verkar också likt, men en del funktionalitet (som SMS) kostar.
+https://cloudrail.com/
+
+Large-scale code reuse in open source software
+http://mockus.us/papers/ossreuse.pdf
+
+Frameworks=(Components+Patterns)
+https://www.researchgate.net/profile/Ralph_Johnson4/publication/220420426_Frameworks_Components_Patterns/links/555f593e08ae6f4dcc926d3a/Frameworks-Components-Patterns.pdf
+
+Structured Approach to Assess Third-Party Library Usage
+https://www.cqse.eu/publications/2012-a-structured-approach-to-assess-third-party-library-usage.pdf
+
+Comparing reuse practices in two large software-producing companies
+http://www.sciencedirect.com.e.bibl.liu.se/science/article/pii/S0164121216300176
