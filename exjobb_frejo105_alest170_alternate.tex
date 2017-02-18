@@ -1,0 +1,186 @@
+\documentclass{sigchi-alternate}
+
+% Use this command to override the default ACM copyright statement (e.g. for preprints). 
+% Consult the conference website for the camera-ready copyright statement.
+%\toappear{%
+%Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from \href{mailto:permission@acm.org}{Permissions@acm.org}.\\[3pt]
+%\textit{CHI 2014}, April 26--May 1, Toronto, ON, Canada.\\
+%Copyright is held by the owner/author(s). Publication rights licensed to ACM.
+%ACM 978-1-4503-1015-4/12/05...\$10.00 \href{http://dx.doi.org/DOI}{DOI}
+%}
+%\submissionversion{CHI 14}
+
+% Load basic packages
+\usepackage{balance}  % to better equalize the last page
+\usepackage{graphicx} % for EPS, load graphicx instead
+\usepackage{url}      % llt: nicely formatted URLs
+\usepackage[utf8]{inputenc}
+
+% llt: Define a global style for URLs, rather that the default one
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
+\makeatother
+\urlstyle{leo}
+
+% remove those two lines if you don't want to use biblatex
+\usepackage[style=sigchi,backend=biber,doititles]{biblatex}
+\addbibresource{references.bib}
+%\DeclareBibliographyCategory{ignore}
+%\addtocategory{ignore}{AGORAVA}
+%\addtocategory{ignore}{CLOUDRAIL}
+%\addtocategory{ignore}{SOCIALMEDIA-ABSTRACTIONS}
+%\addtocategory{ignore}{ASNE}
+
+% hyperref was already loaded by the documentclass.
+% Use nohyperref option to prevent this from happening.
+\hypersetup{
+pdftitle={Ingen titel än},
+pdfauthor={LaTeX},
+pdfkeywords={SIGCHI, proceedings, archival format},
+bookmarksnumbered,
+pdfstartview={FitH},
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black,
+breaklinks=true,
+}
+
+% create a shortcut to typeset table headings
+\newcommand\tabhead[1]{\small\textbf{#1}}
+
+% End of preamble. Here it comes the document.
+\begin{document}
+
+% Arabic page numbers for submission. 
+% Add this line to eliminate page numbers for the camera ready copy
+%\pagestyle{empty}
+
+\title{Ingen titel än}
+
+\numberofauthors{2}
+\author{
+	\alignauthor{Fredrik Jonsén\\
+		\affaddr{Linköping University}\\
+		\affaddr{Linköping, Sweden}\\
+		\email{frejo105@student.liu.se}}
+	\alignauthor{Alexander Stolpe\\
+		\affaddr{Linköping University}\\
+		\affaddr{Norrköping, Sweden}\\
+		\email{alest170@student.liu.se}}
+}
+
+% Teaser figure can go here
+%\teaser{
+%  \centering
+%  \includegraphics{Figure1}
+%  \caption{Teaser Image}
+%  \label{fig:teaser}
+%}
+
+\maketitle
+
+\begin{abstract}
+	Coming later
+\end{abstract}
+
+\section{Introduction}
+Today a lot of people are using social media in one way or the other and it is estimated that there will be around 2.67 billion social media
+users around the globe by 2018\autocite{STATISTA_SN_WORLD_USERS}. Most of these social networks have released Application Programming Interfaces (APIs)
+which developers wish to integrate these networks into their software.
+
+\subsection{Motivation}
+Social network usage is growing and has gone from 0.97 billion users in 2010 to 2.14 billion in 2015.\autocite{STATISTA_SN_WORLD_USERS}. This would
+account for approximately 29\% of the earth's population in 2015, which was 7.347 billion 2015\autocite{WORLD_BANK_POPULATION}. It is worth noting
+that this counts created user accounts and not unique users, one person can have multiple accounts over multiple networks, and accounts may not
+belong to an actual person, but rather companies or bots.
+
+Because of the currently high, and still growing, number of social media users we find it highly likely that we will see an increasing number of
+applications that involve social media in their software in one way or the other. Out of all of the social networks existing today there are twenty
+that have more than 100 million active accounts\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}. This means that if one would want to create an application
+that involves a lot of social networks we will have to do a lot of work just to implement all of these into our system.
+
+\subsection{Purpose}
+Because of this we see a need for a way to combine these social network APIs in some way to save development
+time and reduce the amount of duplicate code written in software. The purpose for this project is to create a library that combines the APIs and
+make it easier to involve social media in software.
+
+A software library by definition is a set of pre-written code that a developer might add to a project to add more functionality or to ease the 
+development process\autocite{TLDP_LIBRARY_DEFINITION}.
+
+\section{Research Question}
+Is it possible to create a modular library to maintain social network APIs?
+
+\section{Limitations}
+Because there are so many social networks existing today and we have a finite amount of time to complete this
+project we will focus on a smaller set of APIs to implement into our library.  We have set up a few criteria 
+for the APIs so we can find suitable candidates for our library, which are:
+\begin{itemize}
+	\item The social network must be one of the 22 most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
+	\item It must be relevant for our geographical location, in this case Europe.
+\end{itemize}
+Other than this we will judge the API itself by how good its documentation is, its functionality and its ease-of-use. 
+
+\section{Theory}
+A lot of time and money can be saved by reusing code, of which libraries are one form. Although there are
+some issues with using libraries, the gains from avoiding reinventing the wheel makes writing and using
+libraries a common practice, in particular in open source software\autocite{2998479020080101}.
+
+Writing code which can be easily reused requires a deeper analysis of the problem domain, which may increase the cost and time required compared 
+to developing the same code without reuse in mind, but can drastically decrease the cost of developing systems in the future where the code can 
+be reused \autocite{lim1994effects}. This cost reduction is apparent foremost in terms of direct cost of development, but also in time-to-market, 
+which can be argued to be even more important in the long term\autocite{griss1993software}.
+
+With code reuse there are also several potential issues which have to be kept in mind, both when it comes to the implementation itself but also 
+when it comes to using the implementation. Backwards compatibility between versions is a major topic in itself\autocite{raemaekers2012measuring}. There 
+is also the risk of a library being abandoned by it’s maintainer. This is especially true for proprietary libraries, where the source code may not 
+be available. It this case, the library might have to be replaced, making all the effort to use the library wasted.
+
+When designing our library we will want keep several things in mind. We want to design the library so it’s easy and straightforward to use for a 
+developer. As Henning points out in his article\autocite{Henning:2007:ADM:1255421.1255422}, about design of APIs, it’s very easy to create a bad one, 
+but very hard to create an API that feels natural and easy to work with. APIs as we know are a kind of interface for a program to gain access to 
+another program without direct access, and can be compared to the interface of our library.
+
+Henning continues in his article to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how 
+he describes how the APIs should be designed from the perspective of the user, because when it’s done from the implementer's point of view the 
+needs of the user are often forgotten. It’s usually best to document first, because when it’s done after the implementation the programmer, who 
+wrote the functionality, will usually just dictate what he did, rather than make it it obvious enough for others who are not as familiar with the code. 
+
+\subsection{Similiar work}
+Several similar works serve the same purpose \footnote{http://www.agorava.org/}\footnote{https://github.com/gorbin/ASNE}\footnote{https://github.com/socialsensor/socialmedia-abstractions}, but none are still maintained. There are also commercial 
+services\footnote{https://cloudrail.com} which provide this functionality for some popular APIs, but charge money to sign up
+and use. As it is proprietary its inner workings are completely opaque, and thus will not be examined by this study.
+
+% Balancing columns in a ref list is a bit of a pain because you
+% either use a hack like flushend or balance, or manually insert
+% a column break.  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=balance
+% multicols doesn't work because we're already in two-column mode,
+% and flushend isn't awesome, so I choose balance.  See this
+% for more info: http://cs.brown.edu/system/software/latex/doc/balance.pdf
+%
+% Note that in a perfect world balance wants to be in the first
+% column of the last page.
+%
+% If balance doesn't work for you, you can remove that and
+% hard-code a column break into the bbl file right before you
+% submit:
+%
+% http://stackoverflow.com/questions/2149854/how-to-manually-equalize-columns-
+% in-an-ieee-paper-if-using-bibtex
+%
+% Or, just remove \balance and give up on balancing the last page.
+%
+\balance
+
+% If you want to use smaller typesetting for the reference list,
+% uncomment the following line:
+% \small
+
+% If you don't want to use biblatex uncomment the following two lines and remove the one after
+%\bibliographystyle{acm-sigchi}
+%\bibliography{sample}
+\printbibliography[notcategory=ignore]
+
+\end{document}

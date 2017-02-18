@@ -1,56 +1,41 @@
 % !TeX spellcheck = en_US
-\documentclass{sigchi}
-
-\pagenumbering{arabic}
-
-%\usepackage{balance}
-\usepackage{graphics}
-\usepackage[T1]{fontenc}
-\usepackage{txfonts}
-\usepackage[pdflang={sv-SE},pdftex]{hyperref}
-\usepackage{color}
-\usepackage{booktabs}
-\usepackage{textcomp}
+\documentclass{sigchi-alternate}
 
 
-\usepackage{microtype}
-\usepackage[all]{hypcap}    % Fixes bug in hyperref caption linking
-\usepackage{ccicons}
-\usepackage[utf8]{inputenc}
+\usepackage{balance}  % to better equalize the last page
+\usepackage{graphicx} % for EPS, load graphicx instead
+\usepackage{url}      % llt: nicely formatted URLs
 
-\def\plaintitle{Ingen titel än}
-\def\plainauthor{Fredrik Jonsén, Alexander Stolpe}
-
+% llt: Define a global style for URLs, rather that the default one
 \makeatletter
-\def\url@leostyle{
-	\@ifundefined{selectfont}{
-		\def\UrlFont{\sf}
-	}{
-		\def\UrlFont{\small\bf\ttfamily}
-}}
+\def\url@leostyle{%
+	\@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
 \makeatother
 \urlstyle{leo}
 
-\def\pprw{8.5in}
-\def\pprh{11in}
-\special{papersize=\pprw,\pprh}
-\setlength{\paperwidth}{\pprw}
-\setlength{\paperheight}{\pprh}
-\setlength{\pdfpageheight}{\pprh}
+% remove those two lines if you don't want to use biblatex
+\usepackage[style=sigchi,backend=bibtex,doititles]{biblatex}
+\addbibresource{references}
 
-\definecolor{linkColor}{RGB}{6,125,233}
+% hyperref was already loaded by the documentclass.
+% Use nohyperref option to prevent this from happening.
 \hypersetup{
-	pdfauthor={\plainauthor},
-	pdfdisplaydoctitle=true,
+	pdftitle={SIGCHI Conference Proceedings Format},
+	pdfauthor={LaTeX},
+	pdfkeywords={SIGCHI, proceedings, archival format},
 	bookmarksnumbered,
+	pdfstartview={FitH},
 	colorlinks,
 	citecolor=black,
 	filecolor=black,
 	linkcolor=black,
-	urlcolor=linkColor,
+	urlcolor=black,
 	breaklinks=true,
 }
-\usepackage{flushend}
+
+% create a shortcut to typeset table headings
+\newcommand\tabhead[1]{\small\textbf{#1}}
+
 \begin{document}
 \title{\plaintitle}
 \numberofauthors{2}
@@ -91,7 +76,7 @@ Because of this we see a need for a way to combine these social network APIs in 
 time and reduce the amount of duplicate code written in software. The purpose for this project is to create a library that combines the APIs and
 make it easier to involve social media in software.
 
-A software library by definition is a set of pre-written code that a developer might add to a project to add more functionality or to ease the 
+A software library by definition is a set of pre-written code that a developer might add to a project to add more functionality or to ease the
 development process\cite{TLDP_LIBRARY_DEFINITION}.
 
 \section{Research Question}
@@ -99,47 +84,47 @@ Is it possible to create a modular library to maintain social network APIs?
 
 \section{Limitations}
 Because there are so many social networks existing today and we have a finite amount of time to complete this
- project we will focus on a smaller set of APIs to implement into our library.  We have set up a few criteria 
+ project we will focus on a smaller set of APIs to implement into our library.  We have set up a few criteria
  for the APIs so we can find suitable candidates for our library, which are:
 \begin{itemize}
 	\item The social network must be one of the 22 most popular\cite{STATISTA_LEADING_SOCIAL_NETWORKS}.
 	\item It must be relevant for our geographical location, in this case Europe.
 \end{itemize}
-Other than this we will judge the API itself by how good its documentation is, its functionality and its ease-of-use. 
+Other than this we will judge the API itself by how good its documentation is, its functionality and its ease-of-use.
 
 \section{Theory}
 A lot of time and money can be saved by reusing code, of which libraries are one form. Although there are
 some issues with using libraries, the gains from avoiding reinventing the wheel makes writing and using
 libraries a common practice, in particular in open source software\cite{2998479020080101}.
 
-Writing code which can be easily reused requires a deeper analysis of the problem domain, which may increase the cost and time required compared 
-to developing the same code without reuse in mind, but can drastically decrease the cost of developing systems in the future where the code can 
-be reused \cite{lim1994effects}. This cost reduction is apparent foremost in terms of direct cost of development, but also in time-to-market, 
+Writing code which can be easily reused requires a deeper analysis of the problem domain, which may increase the cost and time required compared
+to developing the same code without reuse in mind, but can drastically decrease the cost of developing systems in the future where the code can
+be reused \cite{lim1994effects}. This cost reduction is apparent foremost in terms of direct cost of development, but also in time-to-market,
 which can be argued to be even more important in the long term\cite{griss1993software}.
 
-With code reuse there are also several potential issues which have to be kept in mind, both when it comes to the implementation itself but also 
-when it comes to using the implementation. Backwards compatibility between versions is a major topic in itself\cite{raemaekers2012measuring}. There 
-is also the risk of a library being abandoned by it’s maintainer. This is especially true for proprietary libraries, where the source code may not 
+With code reuse there are also several potential issues which have to be kept in mind, both when it comes to the implementation itself but also
+when it comes to using the implementation. Backwards compatibility between versions is a major topic in itself\cite{raemaekers2012measuring}. There
+is also the risk of a library being abandoned by it’s maintainer. This is especially true for proprietary libraries, where the source code may not
 be available. It this case, the library might have to be replaced, making all the effort to use the library wasted.
 
-When designing our library we will want keep several things in mind. We want to design the library so it’s easy and straightforward to use for a 
-developer. As Henning points out in his article\cite{Henning:2007:ADM:1255421.1255422}, about design of APIs, it’s very easy to create a bad one, 
-but very hard to create an API that feels natural and easy to work with. APIs as we know are a kind of interface for a program to gain access to 
+When designing our library we will want keep several things in mind. We want to design the library so it’s easy and straightforward to use for a
+developer. As Henning points out in his article\cite{Henning:2007:ADM:1255421.1255422}, about design of APIs, it’s very easy to create a bad one,
+but very hard to create an API that feels natural and easy to work with. APIs as we know are a kind of interface for a program to gain access to
 another program without direct access, and can be compared to the interface of our library.
 
-Henning continues in his article to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how 
-he describes how the APIs should be designed from the perspective of the user, because when it’s done from the implementer's point of view the 
-needs of the user are often forgotten. It’s usually best to document first, because when it’s done after the implementation the programmer, who 
-wrote the functionality, will usually just dictate what he did, rather than make it it obvious enough for others who are not as familiar with the code. 
+Henning continues in his article to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how
+he describes how the APIs should be designed from the perspective of the user, because when it’s done from the implementer's point of view the
+needs of the user are often forgotten. It’s usually best to document first, because when it’s done after the implementation the programmer, who
+wrote the functionality, will usually just dictate what he did, rather than make it it obvious enough for others who are not as familiar with the code.
 
 \subsection{Similiar work}
 Several similar works serve the same purpose \footnote{\url{http://www.agorava.org/}}\footnote{\url{https://github.com/gorbin/ASNE}}
-\footnote{\url{https://github.com/socialsensor/socialmedia-abstractions}}, but none are still maintained. There are also commercial 
+\footnote{\url{https://github.com/socialsensor/socialmedia-abstractions}}, but none are still maintained. There are also commercial
 services\footnote{\url{https://cloudrail.com/}} which provide this functionality for some popular APIs, but charge money to sign up
 and use. As it is proprietary its inner workings are completely opaque, and thus will not be examined by this study.
+\balance
 
 
-\bibliographystyle{SIGCHI-Reference-Format}
-\bibliography{references}
+\printbibliography
 %\balance
 \end{document}
