@@ -6,7 +6,6 @@
 %Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than the author(s) must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from \href{mailto:permission@acm.org}{Permissions@acm.org}.\\[3pt]
 %\textit{CHI 2014}, April 26--May 1, Toronto, ON, Canada.\\
 %Copyright is held by the owner/author(s). Publication rights licensed to ACM.
-%ACM 978-1-4503-1015-4/12/05...\$10.00 \href{http://dx.doi.org/DOI}{DOI}
 %}
 %\submissionversion{CHI 14}
 
@@ -19,7 +18,7 @@
 % llt: Define a global style for URLs, rather that the default one
 \makeatletter
 \def\url@leostyle{%
-  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
+	\@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\bf\ttfamily}}}
 \makeatother
 \urlstyle{leo}
 
@@ -35,17 +34,17 @@
 % hyperref was already loaded by the documentclass.
 % Use nohyperref option to prevent this from happening.
 \hypersetup{
-pdftitle={Ingen titel än},
-pdfauthor={LaTeX},
-pdfkeywords={SIGCHI, proceedings, archival format},
-bookmarksnumbered,
-pdfstartview={FitH},
-colorlinks,
-citecolor=black,
-filecolor=black,
-linkcolor=black,
-urlcolor=black,
-breaklinks=true,
+	pdftitle={Ingen titel än},
+	pdfauthor={LaTeX},
+	pdfkeywords={SIGCHI, proceedings, archival format},
+	bookmarksnumbered,
+	pdfstartview={FitH},
+	colorlinks,
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black,
+	urlcolor=black,
+	breaklinks=true,
 }
 
 % create a shortcut to typeset table headings
@@ -98,20 +97,21 @@ that this counts created user accounts and not unique users, one person can have
 belong to an actual person, but rather companies or bots.
 
 Because of the currently high, and still growing, number of social media users we find it highly likely that we will see an increasing number of
-applications that involve social media in their software in one way or the other. Out of all of the social networks existing today there are twenty
+applications that involve social media in their software in one way or the other. Out of all the social networks existing today there are twenty
 that have more than 100 million active accounts\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}. This means that if one would want to create an application
 that involves a lot of social networks we will have to do a lot of work just to implement all of these into our system.
 
 \subsection{Purpose}
 Because of this we see a need for a way to combine these social network APIs in some way to save development
-time and reduce the amount of duplicate code written in software. The purpose for this project is to create a library that combines the APIs and
-make it easier to involve social media in software.
+time and reduce the amount of duplicate code written in software. The purpose for this project is to create a library 
+that combines the APIs in a modular fashion, where each API serves as a module in order to simplify adding new networks,
+and make it easier to involve social media in software. 
 
-A software library by definition is a set of pre-written code that a developer might add to a project to add more functionality or to ease the 
+A software library by definition is a set of pre-written code that a developer might add to a project in order to add more functionality or to ease the 
 development process\autocite{TLDP_LIBRARY_DEFINITION}.
 
 \section{Research Question}
-Is it possible to create a modular library to maintain social network APIs?
+Is it possible to create a maintainable modular library for Social Network APIs?
 
 \section{Limitations}
 Because there are so many social networks existing today and we have a finite amount of time to complete this
@@ -124,6 +124,7 @@ for the APIs so we can find suitable candidates for our library, which are:
 Other than this we will judge the API itself by how good its documentation is, its functionality and its ease-of-use. 
 
 \section{Theory}
+\subsection{Code Reuse}
 A lot of time and money can be saved by reusing code, of which libraries are one form. Although there are
 some issues with using libraries, the gains from avoiding reinventing the wheel makes writing and using
 libraries a common practice, in particular in open source software\autocite{2998479020080101}.
@@ -138,20 +139,40 @@ when it comes to using the implementation. Backwards compatibility between versi
 is also the risk of a library being abandoned by it’s maintainer. This is especially true for proprietary libraries, where the source code may not 
 be available. It this case, the library might have to be replaced, making all the effort to use the library wasted.
 
+\subsection{Library Interface Design}
 When designing our library we will want keep several things in mind. We want to design the library so it’s easy and straightforward to use for a 
-developer. As Henning points out in his article\autocite{Henning:2007:ADM:1255421.1255422}, about design of APIs, it’s very easy to create a bad one, 
-but very hard to create an API that feels natural and easy to work with. APIs as we know are a kind of interface for a program to gain access to 
+developer. As Henning points out in his article\autocite{Henning:2007:ADM:1255421.1255422}, about design of APIs, it is very easy to create a bad one, 
+but very hard to create an API that feels natural and easy to work with. APIs, as we know, are a kind of interface for a program to gain access to 
 another program without direct access, and can be compared to the interface of our library.
 
-Henning continues in his article to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how 
-he describes how the APIs should be designed from the perspective of the user, because when it’s done from the implementer's point of view the 
-needs of the user are often forgotten. It’s usually best to document first, because when it’s done after the implementation the programmer, who 
-wrote the functionality, will usually just dictate what he did, rather than make it it obvious enough for others who are not as familiar with the code. 
+Henning continues to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how 
+he describes how the APIs should be designed from the perspective of a user, because when it’s done from the implementer's point of view the 
+needs of the user are often forgotten. It’s usually best to document first, because when it is done after the implementation the programmer, who 
+wrote the functionality, will usually just dictate what he did, rather than make it is obvious enough for others who are not as familiar with the code.
+
+\subsection{Social Media APIs}
+As mentioned, one of the biggest issues with using libraries is the risk of the project being abandoned. This risk increases significantly when the library
+itself uses APIs which integrate oft-changing platforms, such as the case of Social Media. The rate of change differs between networks, in some cases on average
+three times a year\footnote{https://developers.facebook.com/docs/apps/changelog}, in other cases several times a month\footnote{https://www.hitchhq.com/twitter/activities},
+although the impact of the changes varies greatly. At best, a lack of active development simply means missing out on new functionality. In other cases, such as 
+unfixed security vulnerabilities\footnote{https://github.com/gorbin/ASNE/issues/107}, may render the library unusable.
 
 \subsection{Similiar work}
-Several similar works serve the same purpose \footnote{http://www.agorava.org/}\footnote{https://github.com/gorbin/ASNE}\footnote{https://github.com/socialsensor/socialmedia-abstractions}, but none are still maintained. There are also commercial 
-services\footnote{https://cloudrail.com} which provide this functionality for some popular APIs, but charge money to sign up
-and use. As it is proprietary its inner workings are completely opaque, and thus will not be examined by this study.
+Several similar works, Agorava\footnote{http://www.agorava.org/}, ASNE\footnote{https://github.com/gorbin/ASNE} and 
+SocialMedia Abstractions\footnote{https://github.com/socialsensor/socialmedia-abstractions} serve the same or similar purposes, but all were abandoned before reaching a 
+stable release. In the case of ASNE, the project was abandoned explicitly due to a lack of free time. This shows the issue of a library having only a single maintainer, 
+as the project risks being abandoned by it's developer as soon the project is no longer a priority. The others have no stated reason for the lack of continued development.
+There are also commercial services\footnote{https://cloudrail.com} which provide this functionality for some popular APIs, but charge money to sign up 
+and use. As it is proprietary it's inner workings are completely opaque, and thus will not be examined by this study.
+
+\subsubsection{Encountered issues}
+Despite being abandoned, we hope to still learn from the problems the similar libraries encountered and solved. For this, we looked into each project's issue
+tracking (where available) and commits. This was somewhat complicated in that one project, SocialMedia Abstractions, simply had not used issue tracking. 
+Another project, ASNE did use issue tracking, but much of the discussion regarding individual issues was largely in Russian, making it unusable in our case. 
+The issues, despite the name, did not always regard bugs. In the vast majority of cases, issued stemmed from users misunderstanding the library documentation,
+requesting features, or suggesting refactoring of code to increase maintainability. In the case of documentation misunderstandings, these were often
+solved by simply adding examples. There was also a noticeable difference in the amount of issues pertaining bugs in ASNE, which included no automatic tests,
+compared to Agorava, which includes a large amount of automatic tests, and had almost no issues regarding logical errors, despite having a much larger code base.
 
 % Balancing columns in a ref list is a bit of a pain because you
 % either use a hack like flushend or balance, or manually insert
