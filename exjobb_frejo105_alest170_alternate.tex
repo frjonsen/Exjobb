@@ -113,6 +113,15 @@ development process\autocite{TLDP_LIBRARY_DEFINITION}.
 \section{Research Question}
 Is it possible to create a maintainable modular library for Social Network APIs?
 
+\subsubsection{Modularity}
+For the purpose of our study, we define modularity as the extent to which a program can be divided into modules, where\autocite{Kiczales:2005:APM:1062455.1062482}:
+\begin{itemize}
+	\item Each module has a well-defined interface that describes how the system can interact with it.
+	\item Changes to the underlying functionality of a module does not affect the modules interface.
+	\item Modules can be put together with other modules in different ways to make a complete program
+\end{itemize}
+In our study modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
+
 \section{Limitations}
 Because there are so many social networks existing today and we have a finite amount of time to complete this
 project we will focus on a smaller set of APIs to implement into our library.  We have set up a few criteria 
