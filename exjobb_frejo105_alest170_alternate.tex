@@ -169,6 +169,10 @@ needs of the user are often forgotten. It’s usually best to document first, be
 wrote the functionality, will usually just dictate what he did, rather than make it is obvious enough for others who are not as familiar with the code.
 
 \subsection{Social Media APIs}
+A social media API is an interface through which the software can integrate functionality offered by the social media platform, commonly set up as a REST API. 
+These can be used through registering the application on the social media site, thus acquiring an authentication token which can be used to call different
+endpoints via HTTP. The services offered varies between the APIs, but tend to share some basic functionality such as publishing posts and sending private messages.
+
 As mentioned, one of the biggest issues with using libraries is the risk of the project being abandoned. This risk increases significantly when the library
 itself uses APIs which integrate oft-changing platforms, such as the case of Social Media. The rate of change differs between networks, in some cases on average
 three times a year\footnote{https://developers.facebook.com/docs/apps/changelog}, in other cases several times a month\footnote{https://www.hitchhq.com/twitter/activities},
