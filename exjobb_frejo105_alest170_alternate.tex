@@ -14,6 +14,7 @@
 \usepackage{graphicx} % for EPS, load graphicx instead
 \usepackage{url}      % llt: nicely formatted URLs
 \usepackage[utf8]{inputenc}
+\usepackage{tasks}
 
 % llt: Define a global style for URLs, rather that the default one
 \makeatletter
@@ -195,6 +196,81 @@ The issues, despite the name, did not always regard bugs. In the vast majority o
 requesting features, or suggesting refactoring of code to increase maintainability. In the case of documentation misunderstandings, these were often
 solved by simply adding examples. There was also a noticeable difference in the amount of issues pertaining bugs in ASNE, which included no automatic tests,
 compared to Agorava, which includes a large amount of automatic tests, and had almost no issues regarding logical errors, despite having a much larger code base.
+
+\section{Method}
+To find out if we can create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
+popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. We then implemented
+the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluate the library in two different ways.
+First we analyze the data we got from SonarQube and see how well our library performs, and then attempted to integrate our library into an existing application, 
+Blixtvakt\footnote{http://www.blixtvakt.se}, in order to test its practical usability.
+
+\subsection{Social Networks selection}
+To choose which APIs to implement into our library we initially looked at what social media network sites where most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
+Out of these 22 networks 10 were geographically irrelevant for us as a lot of these are niched at the asian market, primarily the chinese one. In this project we focused
+on the European market . We then narrowed it down further to networks with APIs which shared a lot of common functionality, making them more appropriate for the core
+idea of our study.
+
+\begin{tasks}[label =$\bullet$](2)
+\task Facebook
+\task Facebook Messenger
+\task Twitter
+\task Instagram
+\task LinkedIn
+\task tumblr
+\end{tasks}
+The functionalities that these have in common which make them interesting to try and combine to a more modular library were:
+\begin{itemize}
+	\item Posting on the network
+	\item Messaging other people
+	\item Get information on different users
+	\item Be able to authenticate, and use as an account creation substitute
+\end{itemize}
+
+\subsection{Implementation}
+When we had chosen APIs to implement we started we started to implement our library. For this we have chosen to work in the Java language, as we in our evaluation will be 
+integrating our library with the backend of Blixtvakt. We used the most current version of Java at the time of our project, Java SE 8.  We used several tools, which we will
+describe briefly.
+\subsubsection{Maven}
+Maven\footnote{https://maven.apache.org/} is a project management tool. While the tool includes a lot of functionality, we mostly made use of its automated build tool, release-, and
+dependency management.
+\subsubsection{IntelliJ IDEA}
+IntelliJ IDEA\footnote{https://www.jetbrains.com/idea/} is the Integrated Development Environment, IDE, we chose for our project. It offers integration with Maven, syntax highlighting,
+static analysis, boilerplate code generation and other functionality to simplify the implementation work.
+\subsubsection{Travis CI}
+Travis\footnote{https://travis-ci.org/} is a free Open Source service for continuous integration. It integrates with github and runs tests automatically for the project when changes are
+checked in. When done, participants of the project can be notified of the result.
+\subsubsection{SonarQube}
+Sonarqube\footnote{https://www.sonarqube.org/} is a service for, in their own words, continuous code quality. As with Travis, it integrates with GitHub and automatically runs a series of
+checks when code is committed to the repository. This includes analysing the code for general issues, such as a high cyclomatic complexity, missing documentation and dead code, but also
+more detailed issues which may be easy to miss, such as potential infinite loops, unhandled exceptions, or checking floating point numbers for equality.
+
+\subsection{Work Method}
+We chose to work using a test driven development process, where we first wrote tests for our interfaces. During this process we also documented the functionality according to 
+Hennings\autocite{Henning:2007:ADM:1255421.1255422} concept of documenting first, in an effort of making the documentation more understandable from the users perspective. During this
+period we implemented functionality iteratively for our chosen APIs, implementing one functionality at a time for each as to not be left with only one fully implemented API in our library.
+
+\subsection{Design}
+\begin{figure}
+	\includegraphics[width=\columnwidth]{LibraryImplementation.png}
+	\caption{Architectural overview of library}
+\end{figure}
+Our library mainly consist of two parts, see figure 1. Where the library interface is what the users are in contact with when interacting with our library. This interface is an abstraction
+of a generic social network API. The Generic Social Network Implementation is the actual implementation of each social media platform and acts as the middleware between the interface and the 
+external social media platforms.
+The internals of each implementation might differ greatly, where some already have an existing library that we can plug in and use for our library, while we had to implement others completely
+ourselves, using the REST APIs directly. The ones we implement use common utility tools such as an HTTP client and a JSON deserializer in order to be able to properly communicate with the external
+platforms.
+
+The already existing libraries we used are:
+\begin{itemize}
+	\item twitter4j (http://twitter4j.org/)
+	\item facebook4j (https://facebook4j.github.io/)
+\end{itemize}
+
+\subsection{Evalution}
+The evaluation of our library consists of two parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. The second part
+involves integrating our library into the backend of Blixtvakt, which is an mobile application that warns users about lightning strikes in a given area chosen by the user. This will give us a more
+hands-on experience on how easy our library is to use in practice and the more analytical aspect gained from the SonarQube analysis. 
 
 % Balancing columns in a ref list is a bit of a pain because you
 % either use a hack like flushend or balance, or manually insert
