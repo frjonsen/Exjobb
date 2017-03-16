@@ -91,7 +91,6 @@ Today a lot of people are using social media in one way or the other and it is e
 users around the globe by 2018\autocite{STATISTA_SN_WORLD_USERS}. Most of these social networks have released Application Programming Interfaces (APIs)
 which developers wish to integrate these networks into their software.
 
-\subsection{Motivation}
 Social network usage is growing and has gone from 0.97 billion users in 2010 to 2.14 billion in 2015.\autocite{STATISTA_SN_WORLD_USERS}. This would
 account for approximately 29\% of the earth's population in 2015, which was 7.347 billion 2015\autocite{WORLD_BANK_POPULATION}. It is worth noting
 that this counts created user accounts and not unique users, one person can have multiple accounts over multiple networks, and accounts may not
@@ -109,29 +108,32 @@ that combines the APIs in a modular fashion, where each API serves as a module i
 and make it easier to involve social media in software. 
 
 A software library by definition is a set of pre-written code that a developer might add to a project in order to add more functionality or to ease the 
-development process\autocite{TLDP_LIBRARY_DEFINITION}.
+development process\autocite{TLDP_LIBRARY_DEFINITION}. 
 
-\section{Research Question}
-Is it possible to create a maintainable modular library for Social Network APIs?
-
-\subsection{Definitions}
-For some terms, it may be necessary to give a more specific definition.
-
-\subsubsection{Maintainability}
-Maintainability can be defined as the simplicity with which defects can be corrected and the library can be extended or modified to support future 
-requirements.\autocite{5733835}. This can generally be measured by certain attributes, such as unit test coverage, lines of code, cyclomatic complexity,
-and language specific code styles\autocite{SONARQUBE_MAINTAINABILITY_DEFINITION}. For the evaluation of our library, we will be making using of the third
-party tool SonarQube\footnote{https://www.sonarqube.org/}.
-
-\subsubsection{Modularity}
-For the purpose of our study, we define modularity as the extent to which a program can be divided into modules, where\autocite{Kiczales:2005:APM:1062455.1062482}:
+For our study, we define modularity as the extent to which a program can be divided into modules where\autocite{Kiczales:2005:APM:1062455.1062482}:
 \begin{itemize}
 	\item Each module has a well-defined interface that describes how the system can interact with it.
 	\item Changes to the underlying functionality of a module does not affect the modules interface.
 	\item Modules can be put together with other modules in different ways to make a complete program
 \end{itemize}
-In our study modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
+In our case modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
 
+Over time, as new Social Networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
+Maintainability is a very broad term, but in general focuses on how simple the code in itself is to work with, when changes or new additions are necessary.
+In the Theory chapter we will explore this subject more thoroughly. For the evaluation of the maintainability of our library, we will be making using of the third
+party tool SonarQube\footnote{https://www.sonarqube.org/}.
+
+
+\section{Research Question}
+Is it possible to create a maintainable modular library for Social Network APIs.
+
+As the question pertains to the \textit{possibility} of creating the library, it is also necessary to define what would make us deem it impossible to finalize
+the library with a satisfactory result. In regards to this, we see two major potential risk factors:
+\begin{enumerate}
+	\item It may not possible to generalize the results of the APIs, but each API will instead require a large mount of exceptions, making a common interface meaningless.
+	\item The rate of changes to the APIs may be unmaintainable. If we during the course of the relatively short time development time find ourselves having to go back multiple
+	times to adjust already implemented functionality for changes in the API, we will consider the library unmaintainable.
+\end{enumerate}
 \section{Limitations}
 Because there are so many social networks existing today and we have a finite amount of time to complete this
 project we will focus on a smaller set of APIs to implement into our library.  We have set up a few criteria 
@@ -169,6 +171,12 @@ he describes how the APIs should be designed from the perspective of a user, bec
 needs of the user are often forgotten. It’s usually best to document first, because when it is done after the implementation the programmer, who 
 wrote the functionality, will usually just dictate what he did, rather than make it is obvious enough for others who are not as familiar with the code.
 
+\subsection{Maintainability}
+Maintainability can be defined as the simplicity with which defects can be corrected and the library can be extended or modified to support future 
+requirements.\autocite{5733835}. This can generally be measured by certain quantifiable attributes, such as unit test coverage, lines of code and cyclomatic complexity.
+\autocite{SONARQUBE_MAINTAINABILITY_DEFINITION}. It also includes more subjective aspects, such as how self-explanatory the code is, and how well commented sections
+of necessarily complex code is.
+
 \subsection{Social Media APIs}
 A social media API is an interface through which the software can integrate functionality offered by the social media platform, commonly set up as a REST API. 
 These can be used through registering the application on the social media site, thus acquiring an authentication token which can be used to call different
@@ -198,33 +206,17 @@ solved by simply adding examples. There was also a noticeable difference in the 
 compared to Agorava, which includes a large amount of automatic tests, and had almost no issues regarding logical errors, despite having a much larger code base.
 
 \section{Method}
-To find out if we can create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
+To find out if we could create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
 popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. We then implemented
-the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluate the library in two different ways.
-First we analyze the data we got from SonarQube and see how well our library performs, and then attempted to integrate our library into an existing application, 
+the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluated the library in two different ways.
+First we analyzed the data we got from SonarQube and see how well our library performs, and then attempted to integrate our library into an existing application, 
 Blixtvakt\footnote{http://www.blixtvakt.se}, in order to test its practical usability.
 
 \subsection{Social Networks selection}
 To choose which APIs to implement into our library we initially looked at what social media network sites where most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
-Out of these 22 networks 10 were geographically irrelevant for us as a lot of these are niched at the asian market, primarily the chinese one. In this project we focused
-on the European market . We then narrowed it down further to networks with APIs which shared a lot of common functionality, making them more appropriate for the core
-idea of our study.
-
-\begin{tasks}[label =$\bullet$](2)
-\task Facebook
-\task Facebook Messenger
-\task Twitter
-\task Instagram
-\task LinkedIn
-\task tumblr
-\end{tasks}
-The functionalities that these have in common which make them interesting to try and combine to a more modular library were:
-\begin{itemize}
-	\item Posting on the network
-	\item Messaging other people
-	\item Get information on different users
-	\item Be able to authenticate, and use as an account creation substitute
-\end{itemize}
+Out of these networks we sorted out those which were geographically irrelevant for the focus of this project, which is the European market. We then further narrowed down
+the list by looking at the functionality of each API. We selected the APIs which shared a lot of common functionality, which made them more appropriate for the core idea
+of our study, to develop a modular library.
 
 \subsection{Implementation}
 When we had chosen APIs to implement we started we started to implement our library. For this we have chosen to work in the Java language, as we in our evaluation will be 
@@ -234,7 +226,7 @@ describe briefly.
 Maven\footnote{https://maven.apache.org/} is a project management tool. While the tool includes a lot of functionality, we mostly made use of its automated build tool, release-, and
 dependency management.
 \subsubsection{IntelliJ IDEA}
-IntelliJ IDEA\footnote{https://www.jetbrains.com/idea/} is the Integrated Development Environment, IDE, we chose for our project. It offers integration with Maven, syntax highlighting,
+IntelliJ IDEA\footnote{https://www.jetbrains.com/idea/} is the Integrated Development Environment we chose for our project. It offers integration with Maven, syntax highlighting,
 static analysis, boilerplate code generation and other functionality to simplify the implementation work.
 \subsubsection{Travis CI}
 Travis\footnote{https://travis-ci.org/} is a free Open Source service for continuous integration. It integrates with github and runs tests automatically for the project when changes are
@@ -258,8 +250,8 @@ period we implemented functionality iteratively for our chosen APIs, implementin
 Our library mainly consist of two parts, see figure~\ref{fig:architecturalOverview}. Where the library interface is what the users are in contact with when interacting with our library. This interface is an abstraction
 of a generic social network API. The Generic Social Network Implementation is the actual implementation of each social media platform and acts as the middleware between the interface and the 
 external social media platforms.
-The internals of each implementation might differ greatly, where some already have an existing library that we can plug in and use for our library, while we had to implement others completely
-ourselves, using the REST APIs directly. The ones we implement use common utility tools such as an HTTP client and a JSON deserializer in order to be able to properly communicate with the external
+The internals of each implementation might differ greatly, where some already had an existing library that we could plug in and use for our library, while we had to implement others completely
+ourselves, using the REST APIs directly. The ones we implemented use common utility tools such as an HTTP client and a JSON deserializer in order to be able to properly communicate with the external
 platforms.
 
 The already existing libraries we used are:
@@ -273,6 +265,9 @@ The already existing libraries we used are:
 The evaluation of our library consists of two parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. The second part
 involves integrating our library into the backend of Blixtvakt, which is an mobile application that warns users about lightning strikes in a given area chosen by the user. This will give us a more
 hands-on experience on how easy our library is to use in practice and the more analytical aspect gained from the SonarQube analysis. 
+
+When integrating our library into into Blixtvakt we will mainly focus on if we feel that there is anything lacking, or if something is not working as intended. If we feel the need to go back and
+change the source code of the library or change its interfaces our library is deemed unsatisfactory. 
 
 % Balancing columns in a ref list is a bit of a pain because you
 % either use a hack like flushend or balance, or manually insert
