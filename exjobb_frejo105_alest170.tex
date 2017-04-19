@@ -120,7 +120,7 @@ In our case modularity will mostly affect how easy it will be to integrate new s
 
 Over time, as new Social Networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
 Maintainability is a very broad term, but in general focuses on how simple the code in itself is to work with, when changes or new additions are necessary.
-In the Theory chapter we will explore this subject more thoroughly. For the evaluation of the maintainability of our library, we will be making using of the third
+In the Theory chapter we will explore this subject more thoroughly. For the evaluation of the maintainability of our library, we will be making use of the third
 party tool SonarQube\footnote{https://www.sonarqube.org/}.
 
 
@@ -130,7 +130,7 @@ Is it possible to create a maintainable modular library for Social Network APIs?
 As the question pertains to the \textit{possibility} of creating the library, it is also necessary to define what would make us deem it impossible to finalize
 the library with a satisfactory result. In regards to this, we see two major potential risk factors:
 \begin{enumerate}
-	\item It may not possible to generalize the results of the APIs, but each API will instead require a large mount of exceptions, making a common interface meaningless.
+	\item It may not be possible to generalize the results of the APIs, but each API will instead require a large mount of exceptions, making a common interface meaningless.
 	\item The rate of changes to the APIs may be unmaintainable. If we during the course of the relatively short development time find ourselves having to go back multiple
 	times to adjust already implemented functionality due to changes in the API, we will consider the library unmaintainable.
 \end{enumerate}
@@ -207,7 +207,7 @@ compared to Agorava, which includes a large amount of automatic tests, and had a
 
 \section{Method}
 To find out if we could create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
-popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. We then implemented
+popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. As the next step we then implemented
 the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluated the library in two different ways.
 First we analyzed the data we got from SonarQube and see how well our library performs, and then attempted to integrate our library into an existing application, 
 Blixtvakt\footnote{http://www.blixtvakt.se}, in order to test its practical usability.
