@@ -14,6 +14,9 @@
 \usepackage{graphicx} % for EPS, load graphicx instead
 \usepackage{url}      % llt: nicely formatted URLs
 \usepackage[utf8]{inputenc}
+\usepackage[toc,page]{appendix}
+\usepackage{float}
+\usepackage{rotating}
 
 % llt: Define a global style for URLs, rather that the default one
 \makeatletter
@@ -268,8 +271,62 @@ hands-on experience on how easy our library is to use in practice and the more a
 When integrating our library into into Blixtvakt we will mainly focus on if we feel that there is anything lacking, or if something is not working as intended. If we feel the need to go back and
 change the source code of the library or change its interfaces our library is deemed unsatisfactory. 
 
+\section{Results}
+\subsection{Social Networks Selection}
+When looking at social media APIs we found that out of the 22 networks from our list\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}, 10 were geographically irrelevant for our study as many of these were
+niched at the Asian market, primarily the Chinese one. We then narrowed it down further to networks with APIs which shared a lot of common functionality, see Appendix A, making them more appropriate for the core idea
+of our study. Given that the time of the project is finite we chose to look at the top four platforms with good functionality, where Facebook and Messenger was regarded as a single platform.
+\begin{itemize}
+	\item Facebook
+	\item Instagram
+	\item Tumblr
+	\item Twitter
+\end{itemize}
 
-\balance
+\subsubsection{Comparison}
+While comparing APIs functionality we found out that these differ both in how well developed they are as well as how much functionality they offer. Out of the top four platforms facebook and twitter
+had the most well developed APIs, as well as libraries developed by the same developer. Making these our top priority. For the last two platforms we chose to prioritize Tumblr over Instagram considering
+it had an official library written in java, which would make it faster for us to implement into our own library. As such, our final prioritization was as follows:
+\begin{enumerate}
+	\item Facebook
+	\item Twitter
+	\item Tumblr
+	\item Instagram
+\end{enumerate}
+
+\subsection{Implementation}
+In terms of tools used, no implementation compromises had to be made to suit our configuration. Although the library has few dependencies, using Maven made the project significantly more portable, and outside of the
+initial startup and configuration, handling dependencies proved to be no issue, even when switching between workstations.
+
+For SonarQube, our original intention was to use it for evaluation of the end result, but it proved useful during the implementation as well. When committing the code to our git repository, SonarQube would automatically
+pull the code and analyze it. As such, we always had a current idea of the state of the quality of the implementation, and we occasionally took the time to correct issues SonarQube reported. A plugin called SonarLint,
+developed by SonarQube, was also available for IntelliJ IDEA, which uses a more basic rule set than the SonarQube service, but allowed us to avoid many of the most common mistakes, such as unnecessary package imports,
+which may not directly impact the usefulness of the library, but results in cleaner, and more easily worked with, code.
+
+\subsection{Work Method}
+Using Test Driven Development helped in many cases to give a better understanding at the problem each function is meant to solve. This was the most useful when writing functions which have no side effects, as it allows
+for clearer sets of inputs and outputs to and from the function. In essence, writing the tests firsts forced us to write the functions in a way that made them easier to test, and functions which were easy to test also
+turned out to be easier to understand.
+
+At the start of the project we set out to document first as to make the documentation reach a higher quality. As our library mainly consists of already documented functionality in most cases this were merely duplicate
+information and did not impact our own documentation in any meaningful way.
+
+\subsection{Design}
+For two of our chosen platforms, Facebook and Twitter, third-party library implementations of the respective APIs were available. While using these libraries significantly reduced the workload, some compromises had to
+be made. One of the two, facebook4j, is completely synchronous, which meant the other implementations had to be synchronous as well in order to be generalized properly.
+
+As the goal was to generalize the Social Network APIs, we had to look for the lowest common denominator. This meant that the classes for users and posts only supported the very most basic functionality, such as getting
+their id, name and biography. Other functionality, such as getting the friends of a user, had to be relegated to API-specific classes, due to the way friendships work on different networks. An example would be Facebook,
+where friendship is mutual, while the closest equivalent on Twitter is follow, which can be one-sided. On the other hand, Facebook also has a concept of follow, which is not accessible through the API, and thus Facebook
+friends can not be generalized together with the Twitter follow concept.
+
+In some cases, in particular for Facebook, functionality which is available on the site and library users would expect to be present in the library, is not available in the APIs. This is largely in regards to functionality
+which could potentially be used to spam or otherwise inconvenience regular users, such as sending friend requests. Some functionality is available, but has additional rules for usage, such as direct messaging. In this case,
+users are required to start the conversation, to avoid the chat being used as a system for notifications or ads. This does also mean that the usefulness of chat functionality is significantly reduced in the simple REST API
+we intended the library to be, and we decided to leave it out of the library, as it would be more suitable for libraries with this specific purpose.
+
+\subsection{Evaluation}
+Not reached in project yet.
 
 % If you want to use smaller typesetting for the reference list,
 % uncomment the following line:
@@ -279,5 +336,20 @@ change the source code of the library or change its interfaces our library is de
 %\bibliographystyle{acm-sigchi}
 %\bibliography{sample}
 \printbibliography[notcategory=ignore]
-
+\clearpage
+\appendixpage
+\section{Appendix A: API Support Tables}
+\label{app:apisupport}
+\begin{figure}[htb]
+	\rotatebox[origin=c]{-90}{
+ 	\begin{minipage}{7in}
+	\includegraphics[width=\paperwidth]{tables.png}
+	\caption{Overview of functionality supported by different APIs. Green indicates the functionality is fully available through the API. Yellow indicates functionality is partly available. 
+		Red indicates functionality is present on the platform, but not available through the API. Gray indicates the functionality is not a part of the platform, and is as such not applicable. \\
+		* For Facebook, direct message conversations must be initiated and kept alive by the conversation target in order to be used through the API.
+	}
+	\label{fig:apisupporttables}
+	\end{minipage}
+	}
+\end{figure}
 \end{document}
