@@ -302,7 +302,7 @@ In terms of tools used, no implementation compromises had to be made to suit our
 initial startup and configuration, handling dependencies proved to be no issue, even when switching between workstations.
 
 For SonarQube, our original intention was to use it for evaluation of the end result, but it proved useful during the implementation as well. When committing the code to our git repository, SonarQube would automatically
-pull the code and analyze it. As such, we always had a current idea of the state of the quality of the implementation, and we occasionally took the time to correct issues SonarQube reported. A plugin called SonarLint,
+pull the code and analyze it. As such, we always had a current idea of the state of the quality of the implementation, and we occasionally took the time to correct issues SonarQube reported. A plugin called SonarLint\footnote{http://www.sonarlint.org/},
 developed by SonarQube, was also available for IntelliJ IDEA, which uses a more basic rule set than the SonarQube service, but allowed us to avoid many of the most common mistakes, such as unnecessary package imports,
 which may not directly impact the usefulness of the library, but results in cleaner, and more easily worked with, code.
 
