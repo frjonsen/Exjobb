@@ -259,9 +259,10 @@ The already existing libraries we used are:
 \end{itemize}
 
 \subsection{Evaluation}
-The evaluation of our library consists of two parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. The second part
-involves creating a small application which utilizes the library. When selecting the functionality of the application we looked at what common denominators was shared between the different plaforms, that might be suitable. This will gave us a hands-on experience on how easy our library is to use in practice and the more analytical aspect gained
-from the SonarQube analysis. 
+The evaluation of our library consists of three parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. As for the second, once we have finished
+implementing two APIs, we will attempt to implement a third, to test the flexibility of the library interface. The third part involves creating a small application which utilizes the library. When selecting the functionality 
+of the application we looked at what common denominators was shared between the different plaforms, that might be suitable. This will gave us a hands-on experience on how easy our library is to use in practice and the more 
+analytical aspect gained from the SonarQube analysis. 
 
 When integrating our library into our test application, we mainly focused on if we felt that there was anything lacking, or if something was not working as intended. If we felt the need to go back and
 change the source code of the library, or its interfaces, the result is deemed unsatisfactory. 
@@ -290,7 +291,7 @@ it had an official library written in java, which would make it faster for us to
 \end{enumerate}
 
 \subsection{Implementation}
-In terms of tools used, no implementation compromises had to be made to suit our configuration. Although the library has few dependencies, using Maven made the project significantly more portable, and outside of the
+In terms of tools used, no implementation compromises had to be made to suite our configuration. Although the library has few dependencies, using Maven made the project significantly more portable, and outside of the
 initial startup and configuration, handling dependencies proved to be no issue, even when switching between workstations.
 
 For SonarQube, our original intention was to use it for evaluation of the end result, but it proved more useful during the implementation as well. When committing the code to our git repository, SonarQube would automatically
@@ -326,6 +327,12 @@ metric, as it only ensures that the code has been run, but does prevent tests fr
 bugs, such as using the == operator instead of equals for string comparison, which is usually gives an undesirable result in Java. However, as for evaluation of the end result of the implementation, SonarQube did not prove all that useful,
 as the project was simply not large enough in scope to produce a large number of unfixable issues. SonarQube attempt to quantify the complexity of the code, but as the majority of the code written by us simply wraps the libraries we used,
 most of the code is of very low complexity. There were also cases where SonarQube considered the complexity to be very high, such as when using Switches with many cases, even though the cases were in actuality very simple and easy to reason about.
+
+As for the second part of our evaluation, once the implementation of Twitter and Facebook was done, we attempted to add Tumblr to our library. This forced some changes to the library interface. One example is where the follower count of users.
+For Twitter, this was always accessible, and would always return an integer. In the Facebook API, this is not available at all, and thus always throws an exception. As such, the non-nullable type \textit{int} was chosen as the return type of
+the getFollowersCount function in the interface. However, for Tumblr, this functionality \textit{may} be available, depending on the user's settings. If the user has chosen to not make this number available, the API will instead return null, making in
+incompatible. Because of this, we had to change the return type to \textit{Integer}. While this may seem like a minor change, it is in fact a breaking change, and would have forced any existing users of the library to make changers in the own code; in
+particular, change the types of the variables handling the returned data, and make null checks.
 
 \printbibliography[notcategory=ignore]
 \clearpage
