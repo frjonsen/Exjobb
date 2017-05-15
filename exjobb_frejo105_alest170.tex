@@ -224,9 +224,9 @@ the list by looking at the functionality of each API. We selected the APIs which
 of our study, to develop a modular library.
 
 \subsection{Implementation}
-When we had chosen APIs to implement we started we started to implement our library. For this we have chosen to work in the Java language, as we in our evaluation will be 
-integrating our library with the backend of Blixtvakt. We used the most current version of Java at the time of our project, Java SE 8.  We used several tools, which we will
-describe briefly.
+When we had chosen APIs to implement we started we started to implement our library. For this we have chosen to work in the Java language, as we found a decent
+number of pre-existing API-specific libraries we could use in this language. We used the most current version of Java at the time of our project, Java SE 8. We also used several
+tools, which we will describe briefly.
 \subsubsection{Maven}
 Maven\footnote{https://maven.apache.org/} is a project management tool. While the tool includes a lot of functionality, we mostly made use of its automated build tool, release-, and
 dependency management.
@@ -268,8 +268,8 @@ The already existing libraries we used are:
 
 \subsection{Evalution}
 The evaluation of our library consists of two parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. The second part
-involves integrating our library into the backend of Blixtvakt, which is an mobile application that warns users about lightning strikes in a given area chosen by the user. This will give us a more
-hands-on experience on how easy our library is to use in practice and the more analytical aspect gained from the SonarQube analysis. 
+involves creating a small application which will utilize the library. This will give us a hands-on experience on how easy our library is to use in practice and the more analytical aspect gained
+from the SonarQube analysis. 
 
 When integrating our library into into Blixtvakt we will mainly focus on if we feel that there is anything lacking, or if something is not working as intended. If we feel the need to go back and
 change the source code of the library or change its interfaces our library is deemed unsatisfactory. 
