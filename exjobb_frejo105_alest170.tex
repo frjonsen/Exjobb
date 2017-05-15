@@ -60,7 +60,7 @@
 % Add this line to eliminate page numbers for the camera ready copy
 %\pagestyle{empty}
 
-\title{Ingen titel än}
+\title{The feasibility and practicality of a generic social media library}
 
 \numberofauthors{2}
 \author{
@@ -85,7 +85,11 @@
 \maketitle
 
 \begin{abstract}
-Coming later
+Many people today use social media in one way or another, and many of these platforms have released APIs developers can use to integrate social media
+in their applications. As many of these platforms share a lot of functionality we see a need for developing a library, to contain these, and ease the
+development process when working with the platforms. The purpose of this paper is to find common functionality and explore the possibility of generalization
+in this regard. We first look for common denominators between the top social media networks, and using this information we attempt to make an implementation
+to evaluate the practicality. After the development process we analyze our findings and discuss the usability and maintainability of such a library.
 \end{abstract}
 
 \section{Introduction}
@@ -211,8 +215,7 @@ compared to Agorava, which includes a large amount of automatic tests, and had a
 To find out if we could create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
 popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. As the next step we then implemented
 the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluated the library in two different ways.
-First we analyzed the data we got from SonarQube and see how well our library performs, and then attempted to integrate our library into an existing application, 
-Blixtvakt\footnote{http://www.blixtvakt.se}, in order to test its practical usability.
+First we analyzed the data we got from SonarQube and see how well our library performs, and then created a small application, in order to test the library's practical usability.
 
 \subsection{Social Networks selection}
 To choose which APIs to implement into our library we initially looked at what social media network sites where most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
