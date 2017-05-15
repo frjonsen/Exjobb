@@ -257,12 +257,11 @@ The already existing libraries we used are:
 	\item facebook4j (https://facebook4j.github.io/)
 	\item jumblr (https://github.com/tumblr/jumblr)
 \end{itemize}
-
-\subsection{Evaluation}
-The evaluation of our library consists of three parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. As for the second, once we have finished
-implementing two APIs, we will attempt to implement a third, to test the flexibility of the library interface. The third part involves creating a small application which utilizes the library. When selecting the functionality 
-of the application we looked at what common denominators was shared between the different plaforms, that might be suitable. This will gave us a hands-on experience on how easy our library is to use in practice and the more 
-analytical aspect gained from the SonarQube analysis. 
+\subsection{Evalution}
+The evaluation of our library consists of two parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. The second part
+involves creating a small application which utilizes the library. When selecting the functionality of the application we looked at what common denominators was shared between the different 
+plaforms, that might be suitable. This will gave us an empirical experience on how easy our library is to use in practice and the more analytical aspect gained
+from the SonarQube analysis.
 
 When integrating our library into our test application, we mainly focused on if we felt that there was anything lacking, or if something was not working as intended. If we felt the need to go back and
 change the source code of the library, or its interfaces, the result is deemed unsatisfactory. 
@@ -322,11 +321,16 @@ users are required to start the conversation, to avoid the chat being used as a 
 we intended the library to be, and we decided to leave it out of the library, as it would be more suitable for libraries with this specific purpose.
 
 \subsection{Evaluation}
+\subsubsection{SonarQube}
 SonarQube proved to be more useful during the implementation process than as an evaluation tool after the implementation was complete. The most useful feature for us was that of Code Coverage. Code Coverage is a somewhat controversial
 metric, as it only ensures that the code has been run, but does prevent tests from always using happy paths. Nonetheless, it helped visualize which parts of the code had gone untested, mostly due to human error. It also helped avoiding
 bugs, such as using the == operator instead of equals for string comparison, which is usually gives an undesirable result in Java. However, as for evaluation of the end result of the implementation, SonarQube did not prove all that useful,
 as the project was simply not large enough in scope to produce a large number of unfixable issues. SonarQube attempt to quantify the complexity of the code, but as the majority of the code written by us simply wraps the libraries we used,
 most of the code is of very low complexity. There were also cases where SonarQube considered the complexity to be very high, such as when using Switches with many cases, even though the cases were in actuality very simple and easy to reason about.
+\subsubsection{Test Application}
+During the implementation of our test program we found that a lot of the shared functionality was not suitable for a joint application. The application ended up being a smaller post publisher\footnote{https://github.com/Astol/smlevaluation} that
+fetched data from reddit\footnote{https://www.reddit.com/dev/api/}, and then republished it on our different platforms. When developing the application we did not feel like there was anything we had to go back and change in our library for it to
+work. The development was very straightforward and our library was easy to use.
 
 As for the second part of our evaluation, once the implementation of Twitter and Facebook was done, we attempted to add Tumblr to our library. This forced some changes to the library interface. One example is where the follower count of users.
 For Twitter, this was always accessible, and would always return an integer. In the Facebook API, this is not available at all, and thus always throws an exception. As such, the non-nullable type \textit{int} was chosen as the return type of
