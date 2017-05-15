@@ -301,7 +301,7 @@ it had an official library written in java, which would make it faster for us to
 In terms of tools used, no implementation compromises had to be made to suit our configuration. Although the library has few dependencies, using Maven made the project significantly more portable, and outside of the
 initial startup and configuration, handling dependencies proved to be no issue, even when switching between workstations.
 
-For SonarQube, our original intention was to use it for evaluation of the end result, but it proved useful during the implementation as well. When committing the code to our git repository, SonarQube would automatically
+For SonarQube, our original intention was to use it for evaluation of the end result, but it proved more useful during the implementation as well. When committing the code to our git repository, SonarQube would automatically
 pull the code and analyze it. As such, we always had a current idea of the state of the quality of the implementation, and we occasionally took the time to correct issues SonarQube reported. A plugin called SonarLint\footnote{http://www.sonarlint.org/},
 developed by SonarQube, was also available for IntelliJ IDEA, which uses a more basic rule set than the SonarQube service, but allowed us to avoid many of the most common mistakes, such as unnecessary package imports,
 which may not directly impact the usefulness of the library, but results in cleaner, and more easily worked with, code.
@@ -329,7 +329,11 @@ users are required to start the conversation, to avoid the chat being used as a 
 we intended the library to be, and we decided to leave it out of the library, as it would be more suitable for libraries with this specific purpose.
 
 \subsection{Evaluation}
-Not reached in project yet.
+SonarQube proved to be more useful during the implementation process than as an evaluation tool after the implementation was complete. The most useful feature for us was that of Code Coverage. Code Coverage is a somewhat controversial
+metric, as it only ensures that the code has been run, but does prevent tests from always using happy paths. Nonetheless, it helped visualize which parts of the code had gone untested, mostly due to human error. It also helped avoiding
+bugs, such as using the == operator instead of equals for string comparison, which is usually gives an undesirable result in Java. However, as for evaluation of the end result of the implementation, SonarQube did not prove all that useful,
+as the project was simply not large enough in scope to produce a large number of unfixable issues. SonarQube attempt to quantify the complexity of the code, but as the majority of the code written by us simply wraps the libraries we used,
+most of the code is of very low complexity. There were also cases where SonarQube considered the complexity to be very high, such as when using Switches with many cases, even though the cases were in actuality very simple and easy to reason about.
 
 % If you want to use smaller typesetting for the reference list,
 % uncomment the following line:
