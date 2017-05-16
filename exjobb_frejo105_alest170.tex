@@ -236,7 +236,7 @@ more detailed issues which may be easy to miss, such as potential infinite loops
 \subsection{Work Method}
 We chose to work using a test driven development process, where we first wrote tests for our interfaces. During this process we also documented the functionality according to 
 Hennings\autocite{Henning:2007:ADM:1255421.1255422} concept of documenting first, in an effort of making the documentation more understandable from the users perspective. During this
-period we implemented functionality iteratively for our chosen APIs, implementing one functionality at a time for each as to not be left with only one fully implemented API in our library.
+period we implemented functionality iteratively for our two prioritized APIs, implementing one functionality at a time for each as to not be left with only one fully implemented API in our library.
 
 \subsection{Design}
 \begin{figure}
@@ -247,9 +247,8 @@ period we implemented functionality iteratively for our chosen APIs, implementin
 Our library mainly consist of two parts, see figure~\ref{fig:architecturalOverview}. Where the library interface is what the users are in contact with when interacting with our library. This interface is an abstraction
 of a generic social network API. The Generic Social Network Implementation is the actual implementation of each social media platform and acts as the middleware between the interface and the 
 external social media platforms.
-The internals of each implementation might differ greatly, where some already had an existing library that we could plug in and use for our library, while we had to implement others completely
-ourselves, using the REST APIs directly. The ones we implemented use common utility tools such as an HTTP client and a JSON deserializer in order to be able to properly communicate with the external
-platforms.
+The internals of each implementation might differ greatly. To as great a degree as possible, we will use existing libraries which are either official or come officially recommended by the API vendor, in order to save time
+and avoid reimplementing functionality which is already available and suites our purpose.
 
 The already existing libraries we used are:
 \begin{itemize}
@@ -257,7 +256,7 @@ The already existing libraries we used are:
 	\item facebook4j (https://facebook4j.github.io/)
 	\item jumblr (https://github.com/tumblr/jumblr)
 \end{itemize}
-\subsection{Evalution}
+\subsection{Evaluation}
 The evaluation of our library consists of three parts. Throughout the project we have used SonarQube to analyze the quality and maintainability of our code, which is the first part. As for the second, once we have finished
 implementing two APIs, we will attempt to implement a third, to test the flexibility of the library interface. The third part involves creating a small application which utilizes the library. When selecting the functionality 
 of the application we looked at what common denominators was shared between the different plaforms, that might be suitable. This will gave us a hands-on experience on how easy our library is to use in practice and the more 
@@ -327,16 +326,71 @@ metric, as it only ensures that the code has been run, but does prevent tests fr
 bugs, such as using the == operator instead of equals for string comparison, which is usually gives an undesirable result in Java. However, as for evaluation of the end result of the implementation, SonarQube did not prove all that useful,
 as the project was simply not large enough in scope to produce a large number of unfixable issues. SonarQube attempt to quantify the complexity of the code, but as the majority of the code written by us simply wraps the libraries we used,
 most of the code is of very low complexity. There were also cases where SonarQube considered the complexity to be very high, such as when using Switches with many cases, even though the cases were in actuality very simple and easy to reason about.
-\subsubsection{Test Application}
-During the implementation of our test program we found that a lot of the shared functionality was not suitable for a joint application. The application ended up being a smaller post publisher\footnote{https://github.com/Astol/smlevaluation} that
-fetched data from reddit\footnote{https://www.reddit.com/dev/api/}, and then republished it on our different platforms. When developing the application we did not feel like there was anything we had to go back and change in our library for it to
-work. The development was very straightforward and our library was easy to use.
 
+\subsubsection{Third API implementation}
 As for the second part of our evaluation, once the implementation of Twitter and Facebook was done, we attempted to add Tumblr to our library. This forced some changes to the library interface. One example is where the follower count of users.
 For Twitter, this was always accessible, and would always return an integer. In the Facebook API, this is not available at all, and thus always throws an exception. As such, the non-nullable type \textit{int} was chosen as the return type of
 the getFollowersCount function in the interface. However, for Tumblr, this functionality \textit{may} be available, depending on the user's settings. If the user has chosen to not make this number available, the API will instead return null, making in
 incompatible. Because of this, we had to change the return type to \textit{Integer}. While this may seem like a minor change, it is in fact a breaking change, and would have forced any existing users of the library to make changers in the own code; in
 particular, change the types of the variables handling the returned data, and make null checks.
+
+\subsubsection{Test Application}
+For the last part of our evaluation, we built a small application to test actually using the library. During the implementation of our test program we found that a lot of the shared functionality was not suitable for a joint application. The 
+application ended up being a smaller post publisher\footnote{https://github.com/Astol/smlevaluation} that fetched data from reddit\footnote{https://www.reddit.com/dev/api/}, and then republished it on our different platforms. When developing
+the application we did not feel like there was anything we had to go back and change in our library for it to work. The development was very straightforward and our library was easy to use.
+
+\section{Discussion}
+In this part we will first discuss our findings mentioned in the result chapter and follow up with talking about our chosen method of approach.
+
+\subsection{Method}
+\subsubsection{Social media selection}
+During this study we have worked against social media networks that have been deemed geographically relevant for the European market. When looking at the top platforms in social media today\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}, many were discarded
+because of this. There are several widely used platforms that fall under the asian market that did not get any attention in this paper. This might affect the general outcome as these might have APIs more suitable for a generic social media library
+than the ones used in this study. Although the ones we used represent some of the more popular platforms it might not necessarily mean that it is true for every platform.
+
+\subsubsection{Existing libraries}
+In this study we have chosen to use already existing libraries for different social media APIs, when including them into our own library. We did this as a timesaver as to be able to include more platforms in our study, but this also adds another layer of
+abstraction to our library. Not only are we dependant on updates from the APIs themselves, but also on the libraries. Worst case scenario is one of these libraries stops being maintained and means that everything needs to be reimplemented for that social
+media. For this reason, rather than directly reusing library classes such as User or Post, we wrote our own wrapper classes, in order to decouple the libraries from the integrating application, and as such make a potential transition from one library to
+another easier.
+
+\subsubsection{Document first}
+In our work process we set out to document first, as one of the recommendations for achieving a higher quality on the end product described by Henning\autocite{Henning:2007:ADM:1255421.1255422}. This was mostly for this project not very relevant. As we implemented functionality already written, both in the APIs and in the used libraries, we did not design much functionality ourselves. This meant a lot of rewriting documentation from the APIs and libraries we ourselves used. There were instances when it served it’s purpose, but
+for the overall project it did not affect our result in any significant way.
+
+\subsubsection{Test Driven Development}
+Due to poor documentation, both in regards to the APIs as well as the libraries, it was often difficult to write tests first. On many occasions, there were no examples of how the returned data was formatted, or what would happen if e.g. there was an attempt to fetch
+a post with a specified ID, but no such post was found. For two libraries, this simply returned null. For the third library, an exception was instead thrown. Neither of these two behaviors were documented, but we instead had to choose between directly reading the
+source code, which turned out to be a very time consuming task, or simply write the prototype of the function, use the debug tools to check exactly what was returned, and then modify the function to accommodate it. As such, we were often unable to write tests first,
+as we had no idea how to format our tests before the function was already written.
+
+\subsection{Result}
+\subsubsection{Implementation and work method}
+In regards to the actual implementation work of the library, very few issues came up. As we relied heavily on third party libraries for the API implementations, Maven proved very useful for dependency handling. Using a full-featured IDE such as IntelliJ IDEA also
+helped with debugging, which was particularly useful as some functionality in the library was often poorly documented and had few to no examples of the formatting of the data returned.
+
+\subsubsection{Design}
+The result proved to be more negative than our initial expectations. Although it may seem at a glance that a lot of functionality was present in several APIs, as can be seen in Appendix A, their actual implementation often made them
+unsuitable for generalization. Examples of this includes check-ins for posts, where some APIs only allows a general area, like a city, where others use more specific locations, such as a movie theatre, identified by a specific Place ID. In general,
+it appears the APIs are built much more with the intention of fetching information rather than creating or modifying. In my cases, functionality has previously been available in the APIs, but have later been removed in order to combat spam and other
+abuse. This is noticeable in particular for Facebook, where much of the functionality is still present in the documentation, but tagged as either deprecated or already removed, despite the functionality still being available on the actual Facebook
+site and mobile applications.
+
+\subsubsection{Evaluation bias}
+In our third evaluation we developed an application, using our library. Due to the fact that we wrote the application ourselves, and interpreted the result, this might lead to a degree of bias. As we as developers of the library we might
+have felt functionality was obvious and easily understood, where a test including third party participants might have proven otherwise.
+
+\section{Future work}
+As this paper was limited in time there are some aspects that could be further researched to give a broader view on the practicality of a generic social media library. The main focus of these being on to including more social media platforms
+and analyze a broader spectrum of platforms. This would give a more accurate view on the practicality in question. 
+
+\section{Conclusion}
+As for the general conclusion of this study we have deemed the end result to be unsatisfactory due to the current state of APIs. Where the APIs share functionality this seems to be mostly coincidental rather than deliberate. The different
+platforms vary greatly, both in how they logically are built and on what functionality they choose to offer in their APIs. In some cases functionality that once was available has been removed. This discontinuation of functionality also
+raises further worries for the future, as it could be possible that functionality critical to the integrating application may be removed, with no alternative being added.
+
+As we did not research the whole market of social media we see the need for further study to see if this is true as a whole. But for this study we must conclude that this is regrettably not feasible at the present time. Our recommendation
+for anyone wishing to integrate social media into their applications would instead be to research which social networks are the most suitable, and then use the existing individual libraries to integrate the desired functionality.
 
 \printbibliography[notcategory=ignore]
 \clearpage
