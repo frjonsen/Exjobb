@@ -108,13 +108,16 @@ and make it easier to involve social media in software.
 A software library by definition is a set of pre-written code that a developer might add to a project in order to add more functionality or to ease the 
 development process\autocite{TLDP_LIBRARY_DEFINITION}. 
 
-For our study, we define modularity as the extent to which a program can be divided into modules where\autocite{Kiczales:2005:APM:1062455.1062482}:
-\begin{itemize}
-	\item Each module has a well-defined interface that describes how the system can interact with it.
-	\item Changes to the underlying functionality of a module does not affect the modules interface.
-	\item Modules can be put together with other modules in different ways to make a complete program
-\end{itemize}
-In the present case modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
+For our study, we define modularity as the extent to which a program can be divided into modules where\autocite{Kiczales:2005:APM:1062455.1062482}
+where each module has it's own well-defined interface, and there should be no need to modify the interface when changing the module's actual implementation.
+Together, these modules should be easily combined to make up a full program. In the present case modularity will mostly affect how easy it will be to integrate
+new social media APIs in the future.
+%\begin{itemize}
+%	\item Each module has a well-defined interface that describes how the system can interact with it.
+%	\item Changes to the underlying functionality of a module does not affect the modules interface.
+%	\item Modules can be put together with other modules in different ways to make a complete program
+%\end{itemize}%
+
 
 Over time, as new social networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
 Maintainability is a very broad term, but in general focuses on how simple the code in itself is to work with, when changes or new additions are necessary.
