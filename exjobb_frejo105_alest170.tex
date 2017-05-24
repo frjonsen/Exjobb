@@ -89,7 +89,7 @@ Today a lot of people are using social media in one way or another and it is est
 users around the globe by 2018\autocite{STATISTA_SN_WORLD_USERS}. Most of these social networks have released Application Programming Interfaces (APIs)
 which developers can utilize to integrate these networks into their software.
 
-Social network usage is growing and has gone from 0.97 billion users in 2010 to 2.14 billion in 2015.\autocite{STATISTA_SN_WORLD_USERS}. This would
+Social network usage is growing and has gone from 0.97 billion users in 2010 to 2.14 billion in 2015\autocite{STATISTA_SN_WORLD_USERS}. This would
 account for approximately 29\% of the earth's population in 2015, which was 7.347 billion 2015\autocite{WORLD_BANK_POPULATION}. It is worth noting
 that this counts created user accounts and not unique users, one person can have several accounts over multiple networks, and accounts may not
 belong to an actual person, but rather companies, organizations, or bots.
@@ -101,7 +101,7 @@ that involves a lot of social networks we will have to do a lot of work just to 
 
 \subsection{Purpose}
 Because of this we see a need for a way to combine these social network APIs in some way to save development
-time and reduce the amount of duplicate code written in software. The purpose for this project is to create a library 
+time and reduce the amount of duplicate code written in software. The purpose of this project is to create a library 
 that combines the APIs in a modular fashion, where each API serves as a module in order to simplify adding new networks,
 and make it easier to involve social media in software. 
 
@@ -114,16 +114,16 @@ For our study, we define modularity as the extent to which a program can be divi
 	\item Changes to the underlying functionality of a module does not affect the modules interface.
 	\item Modules can be put together with other modules in different ways to make a complete program
 \end{itemize}
-In our case modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
+In the present case modularity will mostly affect how easy it will be to integrate new social media APIs in the future.
 
-Over time, as new Social Networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
+Over time, as new social networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
 Maintainability is a very broad term, but in general focuses on how simple the code in itself is to work with, when changes or new additions are necessary.
 In the Theory chapter we will explore this subject more thoroughly. For the evaluation of the maintainability of our library, we will be making use of the third
 party tool SonarQube\footnote{https://www.sonarqube.org/}.
 
 
 \section{Research Question}
-Is it possible to create a maintainable modular library for Social Network APIs?
+Is it possible to create a maintainable modular library for social network APIs?
 
 As the question pertains to the \textit{possibility} of creating the library, it is also necessary to define what would make us deem it impossible to finalize
 the library with a satisfactory result. In regards to this, we see two major potential risk factors:
@@ -309,7 +309,7 @@ information and did not impact our own documentation in any meaningful way.
 For two of our chosen platforms, Facebook and Twitter, third-party library implementations of the respective APIs were available. While using these libraries significantly reduced the workload, some compromises had to
 be made. One of the two, facebook4j, is completely synchronous, which meant the other implementations had to be synchronous as well in order to be generalized properly.
 
-As the goal was to generalize the Social Network APIs, we had to look for the lowest common denominator. This meant that the classes for users and posts only supported the very most basic functionality, such as getting
+As the goal was to generalize the social network APIs, we had to look for the lowest common denominator. This meant that the classes for users and posts only supported the very most basic functionality, such as getting
 their id, name and biography. Other functionality, such as getting the friends of a user, had to be relegated to API-specific classes, due to the way friendships work on different networks. An example would be Facebook,
 where friendship is mutual, while the closest equivalent on Twitter is follow, which can be one-sided. On the other hand, Facebook also has a concept of follow, which is not accessible through the API, and thus Facebook
 friends can not be generalized together with the Twitter follow concept.
@@ -321,7 +321,7 @@ we intended the library to be, and we decided to leave it out of the library, as
 
 \subsection{Evaluation}
 \subsubsection{SonarQube}
-SonarQube proved to be more useful during the implementation process than as an evaluation tool after the implementation was complete. The most useful feature for us was that of Code Coverage. Code Coverage is a somewhat controversial
+SonarQube proved to be more useful during the implementation process than as an evaluation tool after the implementation was complete. The most useful feature for us was that of code coverage. Code coverage is a somewhat controversial
 metric, as it only ensures that the code has been run, but does prevent tests from always using happy paths. Nonetheless, it helped visualize which parts of the code had gone untested, mostly due to human error. It also helped avoiding
 bugs, such as using the == operator instead of equals for string comparison, which is usually gives an undesirable result in Java. However, as for evaluation of the end result of the implementation, SonarQube did not prove all that useful,
 as the project was simply not large enough in scope to produce a large number of unfixable issues. SonarQube attempt to quantify the complexity of the code, but as the majority of the code written by us simply wraps the libraries we used,
@@ -345,7 +345,7 @@ In this part we will first discuss our findings mentioned in the result chapter 
 \subsection{Method}
 \subsubsection{Social media selection}
 During this study we have worked against social media networks that have been deemed geographically relevant for the European market. When looking at the top platforms in social media today\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}, many were discarded
-because of this. There are several widely used platforms that fall under the asian market that did not get any attention in this paper. This might affect the general outcome as these might have APIs more suitable for a generic social media library
+because of this. There are several widely used platforms that fall under the Asian market that did not get any attention in this paper. This might affect the general outcome as these might have APIs more suitable for a generic social media library
 than the ones used in this study. Although the ones we used represent some of the more popular platforms it might not necessarily mean that it is true for every platform.
 
 \subsubsection{Existing libraries}
@@ -372,7 +372,7 @@ helped with debugging, which was particularly useful as some functionality in th
 \subsubsection{Design}
 The result proved to be more negative than our initial expectations. Although it may seem at a glance that a lot of functionality was present in several APIs, as can be seen in Appendix A, their actual implementation often made them
 unsuitable for generalization. Examples of this includes check-ins for posts, where some APIs only allows a general area, like a city, where others use more specific locations, such as a movie theatre, identified by a specific Place ID. In general,
-it appears the APIs are built much more with the intention of fetching information rather than creating or modifying. In my cases, functionality has previously been available in the APIs, but have later been removed in order to combat spam and other
+it appears the APIs are built much more with the intention of fetching information rather than creating or modifying. In many cases, functionality has previously been available in the APIs, but have later been removed in order to combat spam and other
 abuse. This is noticeable in particular for Facebook, where much of the functionality is still present in the documentation, but tagged as either deprecated or already removed, despite the functionality still being available on the actual Facebook
 site and mobile applications.
 
