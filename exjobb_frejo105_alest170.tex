@@ -90,14 +90,14 @@ users around the globe by 2018\autocite{STATISTA_SN_WORLD_USERS}. Most of these 
 which developers can utilize to integrate these networks into their software.
 
 Social network usage is growing and has gone from 0.97 billion users in 2010 to 2.14 billion in 2015\autocite{STATISTA_SN_WORLD_USERS}. This would
-account for approximately 29\% of the earth's population in 2015, which was 7.347 billion 2015\autocite{WORLD_BANK_POPULATION}. It is worth noting
+account for approximately 29\% of the earths population in 2015, which was 7.347 billion 2015\autocite{WORLD_BANK_POPULATION}. It is worth noting
 that this counts created user accounts and not unique users, one person can have several accounts over multiple networks, and accounts may not
 belong to an actual person, but rather companies, organizations, or bots.
 
 Because of the currently high, and still growing, number of social media users we find it highly likely that we will see an increasing number of
 applications that involve social media in their software in one way or the other. Out of all the social networks existing today there are twenty
 that have more than 100 million active accounts\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}. This means that if we would want to create an application
-that involves a lot of social networks we will have to do a lot of work just to implement all of these into our system.
+that involves a lot of social networks we will have to do a lot of work just to implement all of these into the application.
 
 \subsection{Purpose}
 Because of this we see a need for a way to combine these social network APIs in some way to save development
@@ -109,7 +109,7 @@ A software library by definition is a set of pre-written code that a developer m
 development process\autocite{TLDP_LIBRARY_DEFINITION}. 
 
 For our study, we define modularity as the extent to which a program can be divided into modules where\autocite{Kiczales:2005:APM:1062455.1062482}
-where each module has it's own well-defined interface, and there should be no need to modify the interface when changing the module's actual implementation.
+where each module has its own well-defined interface, and there should be no need to modify the interface when changing the modules actual implementation.
 Together, these modules should be easily combined to make up a full program. In the present case modularity will mostly affect how easy it will be to integrate
 new social media APIs in the future.
 %\begin{itemize}
@@ -172,7 +172,7 @@ but very hard to create an API that feels natural and easy to work with. APIs, a
 another program without direct access, and can be compared to the interface of our library.
 
 Henning continues to discuss guidelines for how an API should generally be designed. What feels most relevant to our work is how 
-he describes how the APIs should be designed from the perspective of a user, because when it’s done from the implementer's point of view the 
+he describes how the APIs should be designed from the perspective of a user, because when it’s done from the implementers point of view the 
 needs of the user are often forgotten. It’s usually best to document first, because when it is done after the implementation the programmer, who 
 wrote the functionality, will usually just dictate what he did, rather than make it is obvious enough for others who are not as familiar with the code.
 
@@ -180,7 +180,9 @@ wrote the functionality, will usually just dictate what he did, rather than make
 Maintainability can be defined as the simplicity with which defects can be corrected and the library can be extended or modified to support future 
 requirements.\autocite{5733835}. This can generally be measured by certain quantifiable attributes, such as unit test coverage, lines of code and cyclomatic complexity.
 \autocite{SONARQUBE_MAINTAINABILITY_DEFINITION}. It also includes more subjective aspects, such as how self-explanatory the code is, and how well commented sections
-of necessarily complex code is.
+of necessarily complex code is. In regards to our library, the aspect of code comprehension becomes the most interesting. This is also the most subjective part, as
+it will depend largely on the reader. Keeping code comprehension high usually comes down to following a set of guidelines\autocite{rilling2003identifying}, such as
+keeping blocks of code short, and minimizing the amount of identifiers, to ensure the reader has to keep track of as little as possible at any given time.
 
 \subsection{Social Media APIs}
 A social media API is an interface through which the software can integrate functionality offered by the social media platform, commonly set up as a REST API. 
@@ -197,12 +199,12 @@ unfixed security vulnerabilities\footnote{https://github.com/gorbin/ASNE/issues/
 Several similar works, Agorava\footnote{http://www.agorava.org/}, ASNE\footnote{https://github.com/gorbin/ASNE} and 
 SocialMedia Abstractions\footnote{https://github.com/socialsensor/socialmedia-abstractions} serve the same or similar purposes, but all were abandoned before reaching a 
 stable release. In the case of ASNE, the project was abandoned explicitly due to a lack of free time. This shows the issue of a library having only a single maintainer, 
-as the project risks being abandoned by it's developer as soon the project is no longer a priority. The others have no stated reason for the lack of continued development.
+as the project risks being abandoned by its developer as soon the project is no longer a priority. The others have no stated reason for the lack of continued development.
 There are also commercial services\footnote{https://cloudrail.com} which provide this functionality for some popular APIs, but charge money to sign up 
-and use. As it is proprietary it's inner workings are completely opaque, and thus will not be examined by this study.
+and use. As it is proprietary its inner workings are completely opaque, and thus will not be examined by this study.
 
 \subsubsection{Encountered issues}
-Despite being abandoned, we hope the research community can still learn from the problems the similar libraries encountered and solved. For this, we looked into each project's issue
+Despite being abandoned, we hope the research community can still learn from the problems the similar libraries encountered and solved. For this, we looked into each projects issue
 tracking (where available) and commits. This was somewhat complicated in that one project, SocialMedia Abstractions, simply had not used issue tracking. 
 Another project, ASNE did use issue tracking, but much of the discussion regarding individual issues was largely in Russian, making it unusable in our case. 
 The issues, despite the name, did not always regard bugs. In the vast majority of cases, issued stemmed from users misunderstanding the library documentation,
@@ -214,7 +216,7 @@ compared to Agorava, which includes a large amount of automatic tests, and had a
 To find out if we could create a modular library for social network APIs we structured our project into three different parts. We began with evaluating the most 
 popular networks on a basis of which are relevant for our project and which are appropriate to integrate into our library based on functionality. As the next step we then implemented
 the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluated the library in two different ways.
-First we analyzed the data we got from SonarQube and see how well our library performs, and then created a small application, in order to test the library's practical usability.
+First we analyzed the data we got from SonarQube and see how well our library performs, and then created a small application, in order to test the librarys practical usability.
 
 \subsection{Social Networks selection}
 To choose which APIs to implement into our library we initially looked at what social media network sites where most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
@@ -337,7 +339,7 @@ most of the code is of very low complexity. There were also cases where SonarQub
 \subsubsection{Third API implementation}
 As for the second part of our evaluation, once the implementation of Twitter and Facebook was done, we attempted to add Tumblr to our library. This forced some changes to the library interface. One example is where the follower count of users.
 For Twitter, this was always accessible, and would always return an integer. In the Facebook API, this is not available at all, and thus always throws an exception. As such, the non-nullable type \textit{int} was chosen as the return type of
-the getFollowersCount function in the interface. However, for Tumblr, this functionality \textit{may} be available, depending on the user's settings. If the user has chosen to not make this number available, the API will instead return null, making in
+the getFollowersCount function in the interface. However, for Tumblr, this functionality \textit{may} be available, depending on the users settings. If the user has chosen to not make this number available, the API will instead return null, making in
 incompatible. Because of this, we had to change the return type to \textit{Integer}. While this may seem like a minor change, it is in fact a breaking change, and would have forced any existing users of the library to make changers in the own code; in
 particular, change the types of the variables handling the returned data, and make null checks.
 
@@ -383,6 +385,12 @@ it appears the APIs are built much more with the intention of fetching informati
 abuse. This is noticeable in particular for Facebook, where much of the functionality is still present in the documentation, but tagged as either deprecated or already removed, despite the functionality still being available on the actual Facebook
 site and mobile applications.
 
+\subsubsection{Maintainability}
+Actually measuring maintainability proved to be a complicated matter. Many measures, especially in regards to complexity, appear useful in theory, but in practice ended up being mostly misleading. Code which should be easily understood even by
+someone relatively new to programming has a high complexity score when measuring cyclomatic complexity\autocite{sonarsourcecodecomplexity}. While we did indeed manage to measure the cognitive complexity of our library source code through the use
+of SonarQube, it is difficult to make use of these numbers in practice, as there is little to compare them to. In a long term project, the measurements could be used to ensure the code does not grow in complexity, or as a tool to reduce complexity,
+but as a final evaluation, the usefulness becomes minimal.
+
 \subsubsection{Evaluation bias}
 In our third evaluation we developed an application, using our library. Due to the fact that we wrote the application ourselves, and interpreted the result, this might lead to a degree of bias. As we as developers of the library we might
 have felt functionality was obvious and easily understood, where a test including third party participants might have proven otherwise.
@@ -408,7 +416,7 @@ for anyone wishing to integrate social media into their applications would inste
 	\rotatebox[origin=c]{-90}{
  	\begin{minipage}{7in}
 	\includegraphics[width=\paperwidth]{tables.png}
-	\caption{Overview of functionality supported by different APIs. Information regarding support was taken directly from each API's respective documentation.Green indicates the functionality is fully 
+	\caption{Overview of functionality supported by different APIs. Information regarding support was taken directly from each APIs respective documentation.Green indicates the functionality is fully 
 		available through the API. Yellow indicates functionality is partly available.  Red indicates functionality is present on the platform, but not available through the API. Gray indicates the
 		functionality is not a part of the platform, and is as such not applicable. \\
 		* For Facebook, direct message conversations must be initiated and kept alive by the conversation target in order to be used through the API.
