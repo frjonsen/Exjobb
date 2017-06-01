@@ -81,7 +81,8 @@ Many people today use social media in one way or another, and many of these plat
 in their applications. As many of these platforms share a lot of functionality we see a need for developing a library, to contain these, and ease the
 development process when working with the platforms. The purpose of this paper is to find common functionality and explore the possibility of generalization
 in this regard. We first look for common denominators between the top social media networks, and using this information we attempt to make an implementation
-to evaluate the practicality. After the development process we analyze our findings and discuss the usability and maintainability of such a library.
+to evaluate the practicality. After the development process we analyze our findings and discuss the usability and maintainability of such a library. Our findings
+show that the current state of the studied APIs are not suitable for generalization.
 \end{abstract}
 
 \section{Introduction}
@@ -109,7 +110,7 @@ A software library by definition is a set of pre-written code that a developer m
 development process\autocite{TLDP_LIBRARY_DEFINITION}. 
 
 For our study, we define modularity as the extent to which a program can be divided into modules where\autocite{Kiczales:2005:APM:1062455.1062482}
-where each module has its own well-defined interface, and there should be no need to modify the interface when changing the modules actual implementation.
+each module has its own well-defined interface, and there should be no need to modify the interface when changing the modules actual implementation.
 Together, these modules should be easily combined to make up a full program. In the present case modularity will mostly affect how easy it will be to integrate
 new social media APIs in the future.
 %\begin{itemize}
@@ -120,7 +121,8 @@ new social media APIs in the future.
 
 
 Over time, as new social networks enter the market, it will have to be possible to integrate them into our library. As such, the code will have to be maintainable.
-Maintainability is a very broad term, but in general focuses on how simple the code in itself is to work with, when changes or new additions are necessary.
+Maintainability is a very broad term, with many interpretations of its meaning\autocite{broy2006demystifying}. We will use maintainability as a general concept, rather
+than a strict definition. For our study we refer to maintainability as how simple the code in itself is to work with, when changes or new additions are necessary.
 In the Theory chapter we will explore this subject more thoroughly. For the evaluation of the maintainability of our library, we will be making use of the third
 party tool SonarQube\footnote{https://www.sonarqube.org/}.
 
@@ -178,8 +180,8 @@ wrote the functionality, will usually just dictate what he did, rather than make
 
 \subsection{Maintainability}
 Maintainability can be defined as the simplicity with which defects can be corrected and the library can be extended or modified to support future 
-requirements.\autocite{5733835}. This can generally be measured by certain quantifiable attributes, such as unit test coverage, lines of code and cyclomatic complexity.
-\autocite{SONARQUBE_MAINTAINABILITY_DEFINITION}. It also includes more subjective aspects, such as how self-explanatory the code is, and how well commented sections
+requirements\autocite{5733835}. This can generally be measured by certain quantifiable attributes, such as unit test coverage, lines of code and cyclomatic complexity\autocite{SONARQUBE_MAINTAINABILITY_DEFINITION}.
+It also includes more subjective aspects, such as how self-explanatory the code is, and how well commented sections
 of necessarily complex code is. In regards to our library, the aspect of code comprehension becomes the most interesting. This is also the most subjective part, as
 it will depend largely on the reader. Keeping code comprehension high usually comes down to following a set of guidelines\autocite{rilling2003identifying}, such as
 keeping blocks of code short, and minimizing the amount of identifiers, to ensure the reader has to keep track of as little as possible at any given time.
@@ -204,9 +206,9 @@ There are also commercial services\footnote{https://cloudrail.com} which provide
 and use. As it is proprietary its inner workings are completely opaque, and thus will not be examined by this study.
 
 \subsubsection{Encountered issues}
-Despite being abandoned, we hope the research community can still learn from the problems the similar libraries encountered and solved. For this, we looked into each projects issue
+Despite being abandoned, we hope the research community can still learn from the problems the similar libraries encountered and solved. For this, one can look into each projects issue
 tracking (where available) and commits. This was somewhat complicated in that one project, SocialMedia Abstractions, simply had not used issue tracking. 
-Another project, ASNE did use issue tracking, but much of the discussion regarding individual issues was largely in Russian, making it unusable in our case. 
+Another project, ASNE did use issue tracking, but much of the discussion regarding individual issues was largely in Russian, making it unusable for the present case. 
 The issues, despite the name, did not always regard bugs. In the vast majority of cases, issued stemmed from users misunderstanding the library documentation,
 requesting features, or suggesting refactoring of code to increase maintainability. In the case of documentation misunderstandings, these were often
 solved by simply adding examples. There was also a noticeable difference in the amount of issues pertaining bugs in ASNE, which included no automatic tests,
@@ -218,11 +220,12 @@ popular networks on a basis of which are relevant for our project and which are 
 the library, using SonarQube throughout development to ensure code quality and maintainability stayed high. Lastly we evaluated the library in two different ways.
 First we analyzed the data we got from SonarQube and see how well our library performs, and then created a small application, in order to test the librarys practical usability.
 
-\subsection{Social Networks selection}
+\subsection{Social Networks Selection}
 To choose which APIs to implement into our library we initially looked at what social media network sites where most popular\autocite{STATISTA_LEADING_SOCIAL_NETWORKS}.
 Out of these networks we sorted out those which were geographically irrelevant for the focus of this project, which is the European market. We then further narrowed down
-the list by looking at the functionality of each API. We selected the APIs which shared a lot of common functionality, which made them more appropriate for the core idea
-of our study, to develop a modular library.
+the list by looking at the functionality of each API. This was done by looking through the official documentations provided by the respective platforms. As a first step we
+wrote down the basic functionality for each one, see appendix A, and then dove deeper into these where we analyzed how they implemented them in their APIs. We selected the APIs
+which shared a lot of generalizable functionality. This made them more appropriate for the core idea of our study, to develop a modular library.
 
 \subsection{Implementation}
 When we had chosen APIs to implement we started we started to implement our library. For this we have chosen to work in the Java language, as we found a decent
